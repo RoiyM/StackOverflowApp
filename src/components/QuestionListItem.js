@@ -1,27 +1,30 @@
-import { View, Text, StyleSheet } from "react-native";
+import { Link } from "expo-router";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 
 const QuestionListItem = ({ question }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.stats}>
-        {question.score} votes • {question.answer_count} answers •{" "}
-        {question.view_count} views
-      </Text>
-      <Text style={styles.title}>{question.title}</Text>
-      <Text style={styles.body} numberOfLines={2}>
-        {question.body_markdown}
-      </Text>
-      <View style={styles.tags}>
-        {question.tags.map((tag, i) => (
-          <Text style={styles.tag} key={i}>
-            {tag}
-          </Text>
-        ))}
-        <Text style={styles.time}>
-          asked {new Date(question.creation_date * 1000).toDateString()}
+    <Link href={`/${question.question_id}`} asChild>
+      <Pressable style={styles.container}>
+        <Text style={styles.stats}>
+          {question.score} votes • {question.answer_count} answers •{" "}
+          {question.view_count} views
         </Text>
-      </View>
-    </View>
+        <Text style={styles.title}>{question.title}</Text>
+        <Text style={styles.body} numberOfLines={2}>
+          {question.body_markdown}
+        </Text>
+        <View style={styles.tags}>
+          {question.tags.map((tag, i) => (
+            <Text style={styles.tag} key={i}>
+              {tag}
+            </Text>
+          ))}
+          <Text style={styles.time}>
+            asked {new Date(question.creation_date * 1000).toDateString()}
+          </Text>
+        </View>
+      </Pressable>
+    </Link>
   );
 };
 
