@@ -1,11 +1,19 @@
 // import { useState, useLayoutEffect } from "react";
 // import { useNavigation } from "expo-router";
-import { StyleSheet, FlatList, View } from "react-native";
+import {
+  StyleSheet,
+  FlatList,
+  View,
+  SafeAreaView,
+  ActivityIndicator,
+} from "react-native";
 import QuestionListItem from "../src/components/QuestionListItem";
-import questions from "../data/questions.json";
+
+import { useQuery } from "urql";
+import { getQuestions } from "../src/graphql/queries";
 
 export default function Page() {
-  // const [searchTerm, setSearchTerm] = useState("");
+  /* // const [searchTerm, setSearchTerm] = useState("");
 
   // const navigation = useNavigation();
 
@@ -16,11 +24,32 @@ export default function Page() {
   //       onBlur: search,
   //     },
   //   });
-  // }, [navigation, searchTerm, setSearchTerm]);
+  // }, [navigation, searchTerm, setSearchTerm]); */
+
+  const [res] = useQuery({
+    query: getQuestions,
+    variables: { sort: "votes" },
+  });
+
+  if (res.fetching) {
+    return (
+      <SafeAreaView>
+        <ActivityIndicator />
+      </SafeAreaView>
+    );
+  }
+
+  if (res.error) {
+    return (
+      <SafeAreaView>
+        <Text>An ERROR has occurred: {res.error.message} </Text>
+      </SafeAreaView>
+    );
+  }
   return (
     <View style={styles.container}>
       <FlatList
-        data={questions.items}
+        data={res.data.questions.items}
         renderItem={({ item }) => <QuestionListItem question={item} />}
         showsVerticalScrollIndicator={false}
       />
