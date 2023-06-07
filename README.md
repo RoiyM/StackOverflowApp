@@ -42,9 +42,7 @@ To configure the app, you need to provide your own stepzen Api key.
 API_KEY=your-api-key-goes-here
 ```
 
-Replace your-api-key-goes-here with your actual key.
-
-4. Save the .env file.
+4. Replace your-api-key-goes-here with your actual key.
 
 ## Technologies Used
 
