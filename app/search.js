@@ -36,7 +36,7 @@ const search = () => {
     });
   }, [navigation, searchTerm, setSearchTerm]);
 
-  if (res.fetching) {
+  if (res.fetching || !res.data) {
     return (
       <SafeAreaView>
         <ActivityIndicator />
@@ -48,14 +48,6 @@ const search = () => {
     return (
       <SafeAreaView>
         <Text>An ERROR has occurred: {res.error.message} </Text>
-      </SafeAreaView>
-    );
-  }
-
-  if (!res.data) {
-    return (
-      <SafeAreaView>
-        <Text>An ERROR has occurred!</Text>
       </SafeAreaView>
     );
   }
