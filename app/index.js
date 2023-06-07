@@ -1,5 +1,3 @@
-// import { useState, useLayoutEffect } from "react";
-// import { useNavigation } from "expo-router";
 import {
   StyleSheet,
   FlatList,
@@ -13,19 +11,6 @@ import { useQuery } from "urql";
 import { getQuestions } from "../src/graphql/queries";
 
 export default function Page() {
-  /* // const [searchTerm, setSearchTerm] = useState("");
-
-  // const navigation = useNavigation();
-
-  // useLayoutEffect(() => {
-  //   navigation.setOptions({
-  //     headerSearchBarOptions: {
-  //       onChangeText: (event) => setSearchTerm(event.nativeEvent.text),
-  //       onBlur: search,
-  //     },
-  //   });
-  // }, [navigation, searchTerm, setSearchTerm]); */
-
   const [res] = useQuery({
     query: getQuestions,
     variables: { sort: "votes" },
